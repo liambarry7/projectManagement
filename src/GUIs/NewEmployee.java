@@ -5,6 +5,12 @@
  */
 package GUIs;
 
+import Objects.Employee;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author kimia
@@ -104,6 +110,11 @@ public class NewEmployee extends javax.swing.JFrame {
         });
 
         AddEmployeeButton.setText("Add New Employee");
+        AddEmployeeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddEmployeeButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -176,7 +187,7 @@ public class NewEmployee extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(OfficeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
                     .addComponent(PhoneNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -218,6 +229,27 @@ public class NewEmployee extends javax.swing.JFrame {
         pm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BackButtonActionPerformed
+
+    private void AddEmployeeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddEmployeeButtonActionPerformed
+        try {
+            
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate hiredate = LocalDate.parse(HireDateField.getText(), formatter);
+            
+            //Validation to check if fields are empty / sensible
+            Employee newEmployee = new Employee(EmployeeIDField.getText(), FirstNameField.getText(), LastNameField.getText(), PasswordField.getText(), DepartmentField.getText(), OfficeField.getText(), PhoneNumberField.getText(), Date.valueOf(hiredate), Double.parseDouble(HourlyRateField.getText()) );
+            
+            //1 - insertNewEmployee in repo
+            //2 - Throw up sucess message
+            //3 - Go back to personel menu
+            
+            
+            
+        } catch (Exception e) {
+            System.out.println("Error in NewEmployee class: " + e);
+            JOptionPane.showMessageDialog(null, "Error entering new employee. New employee not added to the database");
+        }
+    }//GEN-LAST:event_AddEmployeeButtonActionPerformed
 
     
     
